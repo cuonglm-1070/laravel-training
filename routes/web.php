@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.welcome');
+Route::get('/', [Controller::class, 'index']);
+
+Route::resource('users', 'UserController')->only(['index', 'show']);
+
+// regex
+Route::get('posts/{name}', [PostController::class, 'show'])->where('name', '[\sa-zA-Z\d-_]+')->name('posts');
+
+// redirect to named route
+Route::get('/redirect', function () {
+    return redirect()->route('posts', ['name' => 'An article']);
 });
 
-Route::get('/test', function () {
-    return "abc";
-});
+// Route::post('/test',)
+// redirect
+Route::redirect('/here', '/there');
