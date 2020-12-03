@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'index']);
 
-Route::resource('users', 'UserController')->only(['index', 'show']);
+Route::resource('users', 'UserController')->only(['index', 'show', 'destroy']);
 
 // regex
 Route::get('posts/{name}', [PostController::class, 'show'])->where('name', '[\sa-zA-Z\d-_]+')->name('posts');
