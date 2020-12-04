@@ -11,16 +11,4 @@ use Illuminate\Routing\Controller as BaseController;
 class PostController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    function index()
-    {
-        return view('welcome');
-    }
-
-    function show($name)
-    {
-        echo route('posts', ['name' => '1']);
-
-        return view('post', ['name' => $name]);
-    }
 }
