@@ -81,12 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel Training
-                </div>
-
-                <div class="links">
-                    <a href="/users">Users</a>
-                    <a href="/posts">Posts</a>
+                    Post name: {{$name}}
                 </div>
             </div>
         </div>
