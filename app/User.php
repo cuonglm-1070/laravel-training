@@ -16,11 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-        'password'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -29,8 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token'
+        'password', 'remember_token',
     ];
 
     /**
@@ -41,14 +36,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function passport()
-    {
-        return $this->hasOne('App\Passport');
-    }
-
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
-    }
 }
