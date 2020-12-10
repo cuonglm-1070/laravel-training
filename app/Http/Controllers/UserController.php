@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUser;
+use App\Passport;
 use App\User;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -45,21 +51,30 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'email' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'password' => 'required'
-        ]);
+        $validated = $request->validated();
 
         $input = $request->all();
 
         $input['password'] = Hash::make($input['password']);
 
-        User::create($input);
+        DB::beginTransaction();
+        try {
+            //code...
+            $user = User::create($input);
+
+            Passport::create([
+                'name' => 'Le Manh Cuong',
+                'nationality' => 'Vietnam',
+                'expired_at' => now()->addYears(10),
+                'user_id' => $user->id
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
 
         return redirect()->route('users.index');
     }

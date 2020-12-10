@@ -16,6 +16,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Username</th>
                 <th scope="col">Fullname</th>
+                <th scope="col">Nationality</th>
                 <th scope="col">Handle</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
+                    <td>{{ $user->passport->nationality }}</td>
                     <div>
                         <td>
                             <button class="btn btn-info d-inline">
