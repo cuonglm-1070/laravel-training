@@ -8,6 +8,7 @@ use App\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -71,6 +72,8 @@ class UserController extends Controller
                 'user_id' => $user->id
             ]);
             DB::commit();
+
+            Auth::login($user);
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);

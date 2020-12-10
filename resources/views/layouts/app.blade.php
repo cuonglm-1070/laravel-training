@@ -78,7 +78,25 @@
             </div>
         @endif --}}
 
-        <div class="container">
+        <div>
+            <a class="d-block" href="{{ route('register') }}">Register</a>
+            <a class="d-block" href="{{ route('login') }}">Login</a>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-link p-0">Logout</button>
+            </form>
+        </div>
+        @auth
+            <div class="alert alert-success">
+                Logged in as <strong>{{ Auth::user()->username }}</strong>
+            </div>
+        @endauth
+        @guest
+            <div class="alert alert-secondary">
+                Not logged in
+            </div>
+        @endguest
+        <div class=" container">
 
             @yield('content')
 

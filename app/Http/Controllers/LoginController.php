@@ -7,27 +7,36 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function showLogin()
+    {
+        return view('login');
+    }
+
     public function login(Request $request)
     {
         if (Auth::check()) {
             return redirect()->route('home');
         }
 
-        $userData = [
-            'username' => $request->username,
-            'password' => $request->password
-        ];
+        $userData = $request->only(['username', 'password']);
 
-        if (Auth::attempt($userData)) {
-            // FIXME: do something
+        if (Auth::attempt($userData, $request->remember)) {
+            $request->session()->regenerate();
+
             return redirect()->route('home');
         };
 
         return redirect()->route('login');
     }
 
-    // public function logout(Type $var = null)
-    // {
-    //     # code...
-    // }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
+    }
 }
