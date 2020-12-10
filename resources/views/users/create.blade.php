@@ -13,7 +13,7 @@
     @endif
 
     <h1 class="text-center">Create new user</h1>
-    <form class="border rounded px-3 py-4" action="/users" method="POST">
+    <form class="border rounded px-3 py-4" action="{{ route('register') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="inputAddress">Username</label>

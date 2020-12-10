@@ -16,6 +16,10 @@
             <input type="password" @error('password') value="{{ old('password') }}" @enderror name="password"
                 class="form-control" id="inputPassword" placeholder="Password">
         </div>
+        <div class="form-check">
+            <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+        </div>
         <button type="submit" class="btn btn-primary">Log me in</button>
     </form>
 @endsection
